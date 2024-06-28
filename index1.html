@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akan Name Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-image: url('C:/Users/tonio/OneDrive/Desktop/AKAN NAME GENERATOR/akan.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+        }
+        .container {
+            margin-top: 50px;
+            background-color: rgba(0, 0, 0, 0.6); /* Adding a dark overlay */
+            padding: 20px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .header {
+            background-color: #aaa811;
+            color: white;
+            padding: 20px 0;
+        }
+        .header h1 {
+            margin: 0;
+        }
+        .content {
+            margin: 20px;
+        }
+        .content p {
+            font-size: 18px;
+            color: #fff;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        input, select, button {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 80%;
+            max-width: 300px;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Generate Your Akan Name</h1>
+        </div>
+        <div class="content">
+            <form id="akan-form">
+                <label for="birthdate">Birthdate:</label>
+                <input type="date" id="birthdate" required>
+                
+                <label for="gender">Gender:</label>
+                <select id="gender" required>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+                
+                <label for="season">Season of Birth:</label>
+                <select id="season" required>
+                    <option value="winter">Winter</option>
+                    <option value="spring">Spring</option>
+                    <option value="summer">Summer</option>
+                    <option value="fall">Fall</option>
+                </select>
+
+                <label for="quarter">Quarter of Birth:</label>
+                <select id="quarter" required>
+                    <option value="q1">Q1 (Jan-Mar)</option>
+                    <option value="q2">Q2 (Apr-Jun)</option>
+                    <option value="q3">Q3 (Jul-Sep)</option>
+                    <option value="q4">Q4 (Oct-Dec)</option>
+                </select>
+
+                <label for="twin">Are you a twin?</label>
+                <input type="checkbox" id="twin">
+                
+                <label for="twin-order" id="twin-order-label" style="display: none;">Order of birth:</label>
+                <select id="twin-order" style="display: none;">
+                    <option value="first">First twin</option>
+                    <option value="second">Second twin</option>
+                </select>
+                
+                <button type="submit">Get Akan Name</button>
+            </form>
+            <div id="result"></div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('twin').addEventListener('change', function() {
+            const twinOrderLabel = document.getElementById('twin-order-label');
+            const twinOrderSelect = document.getElementById('twin-order');
+            if (this.checked) {
+                twinOrderLabel.style.display = 'block';
+                twinOrderSelect.style.display = 'block';
+            } else {
+                twinOrderLabel.style.display = 'none';
+                twinOrderSelect.style.display = 'none';
+            }
+        });
+
+        document.getElementById('akan-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const birthdate = document.getElementById('birthdate').value;
+            const gender = document.getElementById('gender').value;
+            const season = document.getElementById('season').value;
+            const quarter = document.getElementById('quarter').value;
+            const isTwin = document.getElementById('twin').checked;
+            const twinOrder = isTwin ? document.getElementById('twin-order').value : null;
+
+            const dayOfWeek = new Date(birthdate).getDay();
+            let akanName = '';
+
+            // Determine the Akan name based on the day of the week and gender
+            const maleNames = ['Kwasi', 'Kwadwo', 'Kwabena', 'Kwaku', 'Yaw', 'Kofi', 'Kwame'];
+            const femaleNames = ['Akosua', 'Adwoa', 'Abenaa', 'Akua', 'Yaa', 'Afia', 'Ama'];
+
+            if (gender === 'male') {
+                akanName = maleNames[dayOfWeek];
+            } else {
+                akanName = femaleNames[dayOfWeek];
+            }
+
+            // Additional logic for season, quarter, and twin status can be added here
+
+            const resultDiv = document.getElementById('result');
+            resultDiv.textContent = `Your Akan name is ${akanName}.`;
+        });
+    </script>
+</body>
+</html>
